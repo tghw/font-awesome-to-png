@@ -412,7 +412,8 @@ class ListAction(argparse.Action):
         exit(0)
 
 def export_icon(icon, size, filename, font, color):
-    image = Image.new("RGBA", (size, size), color=(0,0,0,0))
+    bg_color = (int(color[1:3], 16), int(color[3:5], 16), int(color[5:], 16), 0)
+    image = Image.new("RGBA", (size, size), color=bg_color)
 
     draw = ImageDraw.Draw(image)
 
@@ -435,7 +436,7 @@ def export_icon(icon, size, filename, font, color):
     borderh = int((size - (bbox[3] - bbox[1])) / 2)
 
     # Create background image
-    bg = Image.new("RGBA", (size, size), (0,0,0,0))
+    bg = Image.new("RGBA", (size, size), bg_color)
 
     bg.paste(image, (borderw,borderh))
 
